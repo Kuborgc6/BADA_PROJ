@@ -34,23 +34,32 @@ class OperatorDAOTest {
 
 	@Test
 	void testSave() {
-		Operator operator = new Operator(0,"GoodYear NewOne", "2012-06-05","Polska", "420692137");
-		dao.save(operator)
-;	}
+		Operator operator = new Operator(7, "Jakubowo", "1997-06-05", "Polska", "135353568");
+		dao.save(operator);
+	}
 
 	@Test
 	void testGet() {
-		fail("Not yet implemented");
+		int nr_operatora = 10;
+		Operator operator = dao.get(nr_operatora);
+		assertNotNull(operator);
 	}
 
 	@Test
 	void testUpdate() {
-		fail("Not yet implemented");
+		Operator operator = new Operator();
+		operator.setNr_operatora(7);
+		operator.setNazwa("Maćkowo");
+		operator.setKraj_centrali("Niemcy");
+		operator.setNIP("12");
+		operator.setData_zalozenia("2020-12-12");
+		dao.update(operator);
 	}
 
 	@Test
 	void testDelete() {
-		fail("Not yet implemented");
+		int nr_operatora = 11;
+		dao.delete(nr_operatora);
 	}
 
 }

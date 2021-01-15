@@ -15,8 +15,12 @@
 		<h1>Operatorzy Records</h1>
 
 		<!-- Entry to the new page -->
-		 <a href="/new"><button type="button" class="btn btn-primary">Enter
-			new Operator</button> </a>
+		<a href="/new"><button type="button" class="btn btn-primary">Enter
+				new Operator</button> </a>
+
+		<!-- Break Line -->
+		<br /> <br />
+
 		<!--Enter new Operator-->
 
 		<!-- Table -->
@@ -41,7 +45,16 @@
 					<td th:text="${operator.data_zalozenia}">Data Zalozenia</td>
 					<td th:text="${operator.kraj_centrali}">Kraj Centrali</td>
 					<td th:text="${operator.NIP}">NIP</td>
-					<td><button type="button" class="btn btn-primary">Akcja</button></td>
+					<!--<td>
+					<a th:href="@{'/edit/' + ${operator.nr_operatora}}">Edit</a>
+					</td>-->
+					<td><a th:href="@{'/edit/' + ${operator.nr_operatora}}"><button
+								type="button" class="btn btn-secondary">Edit</button></a>
+						&nbsp;&nbsp;&nbsp;&nbsp; <a
+						th:href="@{'/delete/' + ${operator.nr_operatora}}"><button
+								type="button" class="btn btn-danger">Delete</button></a></td>
+					<!-- <button
+								type="button" class="btn btn-danger">Delete</button> -->
 				</tr>
 			</tbody>
 		</table>
