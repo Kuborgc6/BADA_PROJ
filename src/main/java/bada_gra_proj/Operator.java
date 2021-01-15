@@ -1,10 +1,11 @@
 package bada_gra_proj;
 
 public class Operator {
-	private int id;
-	private String item;
-	private int quantity;
-	private float amount;
+	private int nr_operatora;
+	private String nazwa;
+	private String data_zalozenia;
+	private String kraj_centrali;
+	private String NIP;
 	
 	
 	
@@ -14,69 +15,84 @@ public class Operator {
 
 
 
-	public Operator(int id, String item, int quantity, float amount) {
+	public Operator(int nr_operatora, String nazwa, String data_zalozenia, String kraj_centrali, String NIP) {
 		super();
-		this.id = id;
-		this.item = item;
-		this.quantity = quantity;
-		this.amount = amount;
+		this.nr_operatora = nr_operatora;
+		this.nazwa = nazwa;
+		this.data_zalozenia = data_zalozenia;
+		this.kraj_centrali = kraj_centrali;
+		this.NIP = NIP;
 	}
 
 
 	/* Getters and Setters - methods for fields access */
-	public int getId() {
-		return id;
+	public int getNr_operatora() {
+		return nr_operatora;
 	}
 
 
 
-	public void setId(int id) {
-		this.id = id;
+	public void setNr_operatora(int nr_operatora) {
+		this.nr_operatora = nr_operatora;
 	}
 
 
 
-	public String getItem() {
-		return item;
+	public String getNazwa() {
+		return nazwa;
 	}
 
 
 
-	public void setItem(String item) {
-		this.item = item;
+	public void setNazwa(String nazwa) {
+		this.nazwa = nazwa;
 	}
 
 
 
-	public int getQuantity() {
-		return quantity;
+	public String getKraj_centrali() {
+		return kraj_centrali;
 	}
 
 
 
-	public void setQuantity(int quantity) {
-		this.quantity = quantity;
+	public void setKraj_centrali(String kraj_centrali) {
+		this.kraj_centrali = kraj_centrali;
 	}
 
 
 
-	public float getAmount() {
-		return amount;
+	public String getNIP() {
+		return NIP;
 	}
 
 
 
-	public void setAmount(float amount) {
-		this.amount = amount;
+	public void setNIP(String nIP) {
+		NIP = nIP;
+	}
+
+
+	
+	public String getData_zalozenia() {
+		return data_zalozenia;
+	}
+
+
+
+	public void setData_zalozenia(String data_zalozenia) {
+		this.data_zalozenia = data_zalozenia;
 	}
 
 
 
 	@Override
 	public String toString() {
-		return "Operator [id=" + id + ", item=" + item + ", quantity=" + quantity + ", amount=" + amount + "]";
+		return "Operator [nr_operatora=" + nr_operatora + ", nazwa=" + nazwa + ", data_zalozenia=" + data_zalozenia
+				+ ", kraj_centrali=" + kraj_centrali + ", NIP=" + NIP + "]";
 	}
-	
+
+
 	
 	
 }

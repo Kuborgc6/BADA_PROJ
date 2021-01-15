@@ -5,6 +5,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
+import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.stereotype.Repository;
 
 @Repository
@@ -26,14 +28,18 @@ public class OperatorDAO {
 	public List<Operator> list(){
 		String sql = "SELECT * FROM OPERATORZY";
 		
-		List<Operator> listSale = jdbcTemplate.query(sql, 
+		List<Operator> listOperator = jdbcTemplate.query(sql, 
 				BeanPropertyRowMapper.newInstance(Operator.class));
-		return listSale;
+		return listOperator;
 	}
 	
 	/* Insert */
-	public void save(Operator sale) {
+	public void save(Operator operator) {
+		SimpleJdbcInsert insertActor = new SimpleJdbcInsert(jdbcTemplate);
+		insertActor.withTableName("operatorzy").usingColumns("nr_operatora","nazwa","data_zalozenia","kraj_centrali","NIP");
 		
+		BeanPropertySqlParameterSource param = new BeanPropertySqlParameterSource(operator);
+		insertActor.execute(param);
 	}
 	
 	/* Read */
@@ -42,7 +48,7 @@ public class OperatorDAO {
 	}
 	
 	/* Update */
-	public void update(Operator sale) {
+	public void update(Operator operator) {
 		
 	}
 	
