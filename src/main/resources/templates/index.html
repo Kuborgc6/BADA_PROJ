@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<meta charset="UTF-8">
+<title>Operator Manager Application</title>
+
+</head>
+
+<body>
+	<div align="center">
+		<!-- Page header -->
+		<h1>Operatorzy Records</h1>
+
+		<!-- Entry to the new page -->
+		<button type="button" class="btn btn-primary" href="/new">Enter new Operator</button>
+
+
+
+		<!-- Table -->
+		<table border="1" cellpadding="10">
+			<!-- Table header -->
+			<thead>
+				<tr>
+					<th>NR Operatora</th>
+					<th>Nazwa</th>
+					<th>Data Zalozenia</th>
+					<th>Kraj Centrali</th>
+					<th>NIP</th>
+					<th>Akcja</th>
+				</tr>
+			</thead>
+
+			<!-- Table body -->
+			<tbody>
+				<tr th:each="operator : ${listOperator}">
+					<td th:text="${operator.nr_operatora}">NR Operatora</td>
+					<td th:text="${operator.nazwa}">Nazwa</td>
+					<td th:text="${operator.data_zalozenia}">Data Zalozenia</td>
+					<td th:text="${operator.kraj_centrali}">Kraj Centrali</td>
+					<td th:text="${operator.NIP}">NIP</td>
+					<td><button type="button" class="btn btn-primary">Akcja</button></td>
+				</tr>
+			</tbody>
+		</table>
+
+	</div>
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
+</body>
+
+</html>
