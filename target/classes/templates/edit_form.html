@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+
+
+<body>
+	<div align="center">
+		<!-- Page header -->
+		<h1>Edit Operator</h1>
+
+		<!-- End line/ new line -->
+		<br />
+
+		<!-- Entry to the main page -->
+		<a href="/"><button type="button" class="btn btn-primary">Return
+				to main page</button> </a>
+
+		<!-- End line/ new line -->
+		<br/><br/>
+
+		<form action="#" th:action="@{/update}" th:object="${operator}"
+			method="post">
+
+
+			<!-- Table -->
+			<table border="1" cellpadding="10">
+				<!-- Table (first) row -->
+				<tr>
+					<td>Nr Operatora:</td>
+					<td><input type="text" th:field="*{nr_operatora}"
+						readonly="readonly"></td>
+				</tr>
+
+				<!-- Table (second) row -->
+				<tr>
+					<td>Nazwa:</td>
+					<td><input type="text" th:field="*{nazwa}"></td>
+				</tr>
+
+				<!-- Table (third) row -->
+				<tr>
+					<td>Data Zalozenia:</td>
+					<td><input type="text" th:field="*{data_zalozenia}"></td>
+				</tr>
+
+				<!-- Table (fourth) row -->
+				<tr>
+					<td>Kraj Centrali:</td>
+					<td><input type="text" th:field="*{kraj_centrali}"></td>
+				</tr>
+
+				<!-- Table (fifth) row -->
+				<tr>
+					<td>NIP:</td>
+					<td><input type="text" th:field="*{NIP}"></td>
+				</tr>
+
+				<!-- Button save -->
+				<tr>
+					<td colspan="2"><button type="submit" class="btn btn-outline-secondary">Save</button></td>
+				</tr>
+		</form>
+	</div>
+
+	<link
+		href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css"
+		rel="stylesheet"
+		integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1"
+		crossorigin="anonymous">
+	<script
+		src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"
+		integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW"
+		crossorigin="anonymous"></script>
+</body>
+</html>
