@@ -8,8 +8,11 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
-
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
+@Repository
 public class KlientDAO {
+	
 	@Autowired
 	/* Import org.springframework.jd..Template */
 	private JdbcTemplate jdbcTemplate;
@@ -59,6 +62,29 @@ public class KlientDAO {
 	public void delete(int nr_klienta) {
 		String sql = "DELETE FROM KLIENCI WHERE nr_klienta = ?";
 		jdbcTemplate.update(sql, nr_klienta);
+	}
+
+	/* Show all klients in certain Usluga */
+	public List<Klient> connectUslugi(int nr_uslugi) {
+		Object[] args = { nr_uslugi };
+		String sql = "select klienci.nr_klienta, klienci.NUMER_KONTAKTU, klienci.ADRES_EMAIL, klienci.DATA_ZALOZENIA_KONTA, klienci.nr_adresu from klienci\r\n"
+				+ "join Klient_Usługa\r\n" + "on klienci.nr_klienta = Klient_Usługa.nr_klienta\r\n" + "join uslugi\r\n"
+				+ "on Klient_Usługa.nr_uslugi = uslugi.nr_uslugi\r\n" + "where uslugi.nr_uslugi = " + args[0];
+
+		List<Klient> listUslugaKlient = jdbcTemplate.query(sql, BeanPropertyRowMapper.newInstance(Klient.class));
+		return listUslugaKlient;
+	}
+
+	/* Show all klients in certain Operatorzy */
+	public List<Klient> connectOperatorzy(int nr_uslugi) {
+		Object[] args = { nr_uslugi };
+		String sql = "select klienci.nr_klienta, klienci.NUMER_KONTAKTU, klienci.ADRES_EMAIL, klienci.DATA_ZALOZENIA_KONTA, klienci.nr_adresu from klienci\r\n"
+				+ "join Klient_Usługa\r\n" + "on klienci.nr_klienta = Klient_Usługa.nr_klienta\r\n" + "join uslugi\r\n"
+				+ "on Klient_Usługa.nr_uslugi = uslugi.nr_uslugi\r\n" + "join operatorzy\r\n"
+				+ "on uslugi.NR_OPERATORA = operatorzy.NR_OPERATORA\r\n" + "where operatorzy.NR_OPERATORA = " + args[0];
+
+		List<Klient> listUslugaKlient = jdbcTemplate.query(sql, BeanPropertyRowMapper.newInstance(Klient.class));
+		return listUslugaKlient;
 	}
 
 }
