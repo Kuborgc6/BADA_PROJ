@@ -5,14 +5,14 @@
 
 <head>
 <meta charset="UTF-8">
-<title>Admin klienci</title>
+<title>Admin uslugi</title>
 
 </head>
 
 <body>
 	<div align="center">
 		<!-- Page header -->
-		<h1>Klienci Records</h1>
+		<h1>Uslugi Records</h1>
 		<!-- Entry to the new page -->
 		<a href="/admin"><button type="button" class="btn btn-success">Return
 				to main admin site</button> </a>
@@ -20,8 +20,8 @@
 		<!-- Break Line -->
 		<br /> <br />
 		<!-- Entry to the new page -->
-		<a href="/admin/klienci/new"><button type="button"
-				class="btn btn-primary">Enter new Klient</button> </a>
+		<a href="/admin/uslugi/new"><button type="button"
+				class="btn btn-primary">Enter new Uslugi</button> </a>
 
 		<!-- Break Line -->
 		<br /> <br />
@@ -33,37 +33,34 @@
 			<!-- Table header -->
 			<thead>
 				<tr>
-					<th>NR Klienta</th>
-					<th>Numer Kontaktu</th>
-					<th>Adres email</th>
-					<th>Data zalozenia konta</th>
-					<!-- <th>Nr adresu</th> -->
+					<th>NR Uslugi</th>
+					<th>Nazwa</th>
+					<th>Koszt</th>
+					<!-- <th>Nr operatora</th>
+					<th>Nr adresu</th> -->
 					<th>Operatorzy</th>
-					<th>Uslugi</th>
+					<th>Klienci</th>
 					<th>Akcja</th>
 				</tr>
 			</thead>
 
 			<!-- Table body -->
 			<tbody>
-				<tr th:each="klient : ${listKlient}">
-					<td th:text="${klient.nr_klienta}">NR Klienta</td>
-					<td th:text="${klient.numer_kontaktu}">Numer Kontaktu</td>
-					<td th:text="${klient.adres_email}">Adres email</td>
-					<td th:text="${klient.data_zalozenia_konta}">Data zalozenia
-						konta</td>
+				<tr th:each="usluga : ${listUsluga}">
+					<td th:text="${usluga.nr_uslugi}">NR Klienta</td>
+					<td th:text="${usluga.nazwa}">Numer Kontaktu</td>
+					<td th:text="${usluga.koszt}">Adres email</td>
 					<td><a
-						th:href="@{'/admin/klienci/operator/' + ${klient.nr_klienta}}"><button
+						th:href="@{'/admin/uslugi/operator/' + ${usluga.nr_uslugi}}"><button
 								type="button" class="btn btn-primary">Operator</button></a>
 					<td><a
-						th:href="@{'/admin/klienci/uslugi/' + ${klient.nr_klienta}}"><button
-								type="button" class="btn btn-warning">Uslugi</button></a>
+						th:href="@{'/admin/uslugi/klienci/' + ${usluga.nr_uslugi}}"><button
+								type="button" class="btn btn-info">Klienci</button></a>
 					<td><a
-						th:href="@{'/admin/klienci/edit/' + ${klient.nr_klienta}
-					}"><button
+						th:href="@{'/admin/uslugi/edit/' + ${usluga.nr_uslugi}}"><button
 								type="button" class="btn btn-secondary">Edit</button></a>
 						&nbsp;&nbsp;&nbsp;&nbsp; <a
-						th:href="@{'/admin/klienci/delete/' + ${klient.nr_klienta}}"><button
+						th:href="@{'/admin/uslugi/delete/' + ${usluga.nr_uslugi}}"><button
 								type="button" class="btn btn-danger">Delete</button></a></td>
 				</tr>
 			</tbody>

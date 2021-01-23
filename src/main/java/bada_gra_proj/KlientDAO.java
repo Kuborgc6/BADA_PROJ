@@ -8,7 +8,6 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 @Repository
 public class KlientDAO {
@@ -35,7 +34,7 @@ public class KlientDAO {
 	public void save(Klient klient) {
 		SimpleJdbcInsert insertActor = new SimpleJdbcInsert(jdbcTemplate);
 		insertActor.withTableName("klienci").usingColumns("nr_klienta", "numer_kontaktu", "adres_email",
-				"data_zalozenia_konta", "nr_adresu");
+				"data_zalozenia_konta","nr_adresu");
 		/**/
 
 		BeanPropertySqlParameterSource param = new BeanPropertySqlParameterSource(klient);
@@ -43,16 +42,16 @@ public class KlientDAO {
 	}
 
 	/* Read */
-	public Operator get(int nr_klienta) {
+	public Klient get(int nr_klienta) {
 		Object[] args = { nr_klienta };
 		String sql = "SELECT * FROM KLIENCI WHERE NR_KLIENTA = " + args[0];
-		Operator klient = jdbcTemplate.queryForObject(sql, BeanPropertyRowMapper.newInstance(Operator.class));
+		Klient klient = jdbcTemplate.queryForObject(sql, BeanPropertyRowMapper.newInstance(Klient.class));
 		return klient;
 	}
 
 	/* Update */
 	public void update(Klient klient) {
-		String sql = "UPDATE KLIENCI SET nr_adresu=:nr_adresu, numer_kontaktu=:numer_kontaktu, adres_email=:adres_email, data_zalozenia_konta=:data_zalozenia_konta WHERE nr_klienta=:nr_klienta";
+		String sql = "UPDATE KLIENCI SET numer_kontaktu=:numer_kontaktu, adres_email=:adres_email, data_zalozenia_konta=:data_zalozenia_konta WHERE nr_klienta=:nr_klienta";
 		BeanPropertySqlParameterSource param = new BeanPropertySqlParameterSource(klient);
 		NamedParameterJdbcTemplate template = new NamedParameterJdbcTemplate(jdbcTemplate);
 		template.update(sql, param);
@@ -76,15 +75,15 @@ public class KlientDAO {
 	}
 
 	/* Show all klients in certain Operatorzy */
-	public List<Klient> connectOperatorzy(int nr_uslugi) {
-		Object[] args = { nr_uslugi };
+	public List<Klient> connectOperatorzy(int nr_operatora) {
+		Object[] args = { nr_operatora };
 		String sql = "select klienci.nr_klienta, klienci.NUMER_KONTAKTU, klienci.ADRES_EMAIL, klienci.DATA_ZALOZENIA_KONTA, klienci.nr_adresu from klienci\r\n"
 				+ "join Klient_Usługa\r\n" + "on klienci.nr_klienta = Klient_Usługa.nr_klienta\r\n" + "join uslugi\r\n"
 				+ "on Klient_Usługa.nr_uslugi = uslugi.nr_uslugi\r\n" + "join operatorzy\r\n"
 				+ "on uslugi.NR_OPERATORA = operatorzy.NR_OPERATORA\r\n" + "where operatorzy.NR_OPERATORA = " + args[0];
 
-		List<Klient> listUslugaKlient = jdbcTemplate.query(sql, BeanPropertyRowMapper.newInstance(Klient.class));
-		return listUslugaKlient;
+		List<Klient> listOperatorKlient = jdbcTemplate.query(sql, BeanPropertyRowMapper.newInstance(Klient.class));
+		return listOperatorKlient;
 	}
 
 }

@@ -4,36 +4,35 @@
 
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>Admin Edit Uslugi</title>
 </head>
 
 
 <body>
 	<div align="center">
 		<!-- Page header -->
-		<h1>Edit Operator</h1>
+		<h1>Admin Edit Usluga</h1>
 
 		<!-- End line/ new line -->
 		<br />
 
 		<!-- Entry to the main page -->
-		<a href="/"><button type="button" class="btn btn-primary">Return
-				to main page</button> </a>
+		<a href="/admin/uslugi"><button type="button"
+				class="btn btn-primary">Return to main page</button> </a>
 
 		<!-- End line/ new line -->
-		<br />
-		<br />
+		<br /> <br />
 
-		<form action="#" th:action="@{/update}" th:object="${operator}"
-			method="post">
+		<form action="#" th:action="@{/admin/uslugi/update}"
+			th:object="${usluga}" method="post">
 
 
 			<!-- Table -->
 			<table border="1" cellpadding="10">
 				<!-- Table (first) row -->
 				<tr>
-					<td>Nr Operatora:</td>
-					<td><input type="text" th:field="*{nr_operatora}"
+					<td>Nr Uslugi:</td>
+					<td><input type="text" th:field="*{nr_uslugi}"
 						readonly="readonly"></td>
 				</tr>
 
@@ -45,20 +44,14 @@
 
 				<!-- Table (third) row -->
 				<tr>
-					<td>Data Zalozenia:</td>
-					<td><input type="text" th:field="*{data_zalozenia}"></td>
+					<td>Koszt:</td>
+					<td><input type="text" th:field="*{koszt}"></td>
 				</tr>
 
 				<!-- Table (fourth) row -->
 				<tr>
-					<td>Kraj Centrali:</td>
-					<td><input type="text" th:field="*{kraj_centrali}"></td>
-				</tr>
-
-				<!-- Table (fifth) row -->
-				<tr>
-					<td>NIP:</td>
-					<td><input type="text" th:field="*{NIP}"></td>
+					<td>Nr operatora:</td>
+					<td><input type="text" th:field="*{nr_operatora}"></td>
 				</tr>
 
 				<!-- Button save -->

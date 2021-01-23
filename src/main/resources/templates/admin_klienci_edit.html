@@ -4,61 +4,60 @@
 
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>Admin Edit Klienci</title>
 </head>
 
 
 <body>
 	<div align="center">
 		<!-- Page header -->
-		<h1>Edit Operator</h1>
+		<h1>Admin Edit Klient</h1>
 
 		<!-- End line/ new line -->
 		<br />
 
 		<!-- Entry to the main page -->
-		<a href="/"><button type="button" class="btn btn-primary">Return
-				to main page</button> </a>
+		<a href="/admin/klienci"><button type="button"
+				class="btn btn-primary">Return to main page</button> </a>
 
 		<!-- End line/ new line -->
-		<br />
-		<br />
+		<br /> <br />
 
-		<form action="#" th:action="@{/update}" th:object="${operator}"
-			method="post">
+		<form action="#" th:action="@{/admin/klienci/update}"
+			th:object="${klient}" method="post">
 
 
 			<!-- Table -->
 			<table border="1" cellpadding="10">
 				<!-- Table (first) row -->
 				<tr>
-					<td>Nr Operatora:</td>
-					<td><input type="text" th:field="*{nr_operatora}"
+					<td>Nr Klienta:</td>
+					<td><input type="text" th:field="*{nr_klienta}"
 						readonly="readonly"></td>
 				</tr>
 
 				<!-- Table (second) row -->
 				<tr>
-					<td>Nazwa:</td>
-					<td><input type="text" th:field="*{nazwa}"></td>
+					<td>Nr kontaktu:</td>
+					<td><input type="text" th:field="*{numer_kontaktu}"></td>
 				</tr>
 
 				<!-- Table (third) row -->
 				<tr>
-					<td>Data Zalozenia:</td>
-					<td><input type="text" th:field="*{data_zalozenia}"></td>
+					<td>Adres email:</td>
+					<td><input type="text" th:field="*{adres_email}"></td>
 				</tr>
 
 				<!-- Table (fourth) row -->
 				<tr>
-					<td>Kraj Centrali:</td>
-					<td><input type="text" th:field="*{kraj_centrali}"></td>
+					<td>Data zalozenia kontra:</td>
+					<td><input type="text" th:field="*{data_zalozenia_konta}"></td>
 				</tr>
 
 				<!-- Table (fifth) row -->
 				<tr>
-					<td>NIP:</td>
-					<td><input type="text" th:field="*{NIP}"></td>
+					<td>Nr adresu:</td>
+					<td><input type="text" th:field="*{nr_adresu}"></td>
 				</tr>
 
 				<!-- Button save -->

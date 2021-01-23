@@ -64,4 +64,33 @@ public class OperatorDAO {
 		String sql = "DELETE FROM OPERATORZY WHERE nr_operatora = ?";
 		jdbcTemplate.update(sql, nr_operatora);
 	}
+	
+	/* Show Operator in certain Uslugi */
+	public Operator connectUslugi(int nr_uslugi) {
+		Object[] args = { nr_uslugi };
+		String sql = "Select OPERATORZY.NR_OPERATORA, OPERATORZY.NAZWA, OPERATORZY.KRAJ_CENTRALI, Operatorzy.data_zalozenia, OPERATORZY.NIP from operatorzy\r\n"
+				+ "join uslugi \r\n"
+				+ "on operatorzy.nr_operatora = uslugi.nr_operatora\r\n"
+				+ "where uslugi.nr_uslugi = " + args[0];
+
+		Operator operator = jdbcTemplate.queryForObject(sql, BeanPropertyRowMapper.newInstance(Operator.class));
+		return operator;
+	}
+	
+	/* Show Operator in certain Klient */
+	public Operator connectKlient(int nr_klienta) {
+		Object[] args = { nr_klienta };
+		String sql = "Select OPERATORZY.NR_OPERATORA, OPERATORZY.NAZWA, OPERATORZY.KRAJ_CENTRALI, Operatorzy.data_zalozenia, OPERATORZY.NIP from operatorzy\r\n"
+				+ "join uslugi \r\n"
+				+ "on operatorzy.nr_operatora = uslugi.nr_operatora\r\n"
+				+ "join Klient_Usługa\r\n"
+				+ "on Klient_Usługa.nr_uslugi = uslugi.nr_uslugi\r\n"
+				+ "join klienci\r\n"
+				+ "on klienci.nr_klienta = Klient_Usługa.nr_klienta\r\n"
+				+ "where klienci.nr_klienta =" + args[0];
+
+		Operator operator = jdbcTemplate.queryForObject(sql, BeanPropertyRowMapper.newInstance(Operator.class));
+		return operator;
+	}
+	
 }

@@ -14,13 +14,15 @@
 		<h1>Enter New Operator</h1>
 
 		<!-- Entry to the main admin page -->
-		<a href="/admin/operatorzy"><button type="button" class="btn btn-primary">Return to main page</button> </a>
+		<a href="/admin/operatorzy"><button type="button"
+				class="btn btn-primary">Return to main operatorzy page</button> </a>
 
 		<!-- End line/new line -->
-		<br/><br/>
+		<br />
+		<br />
 
-		<form action="#" th:action="@{/admin/operatorzy/save}" th:object="${operator}" th:id
-			method="post">
+		<form action="#" th:action="@{/admin/operatorzy/save}"
+			th:object="${operator}" th:id method="post">
 			<!-- Table -->
 			<table border="1" cellpadding="10">
 
@@ -56,7 +58,8 @@
 
 				<!-- Button -->
 				<tr>
-					<td colspan="2"><button type="submit" class="btn btn-outline-secondary">Save</button></td>
+					<td colspan="2"><button type="submit"
+							class="btn btn-outline-secondary">Save</button></td>
 				</tr>
 			</table>
 		</form>

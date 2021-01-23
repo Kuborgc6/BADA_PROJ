@@ -11,14 +11,13 @@ public class Klient {
 
 	}
 
-	public Klient(int nr_klienta, String numer_kontaktu, String adres_email, String data_zalozenia_konta,
-			int nr_adresu) {
+	public Klient(int nr_klienta, String numer_kontaktu, String adres_email, String data_zalozenia_konta, int nr_adresu) {
 		super();
 		this.nr_klienta = nr_klienta;
 		this.numer_kontaktu = numer_kontaktu;
 		this.adres_email = adres_email;
 		this.data_zalozenia_konta = data_zalozenia_konta;
-		this.nr_adresu = nr_adresu;
+		this.nr_adresu = 1;
 	}
 
 	/* Getters and Setters - methods for fields access */

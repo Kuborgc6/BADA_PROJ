@@ -20,8 +20,9 @@
 		<!-- Break Line -->
 		<br /> <br />
 		<!-- Entry to the new page -->
-		<a href="/admin/operatorzy/klienci/new"><button type="button"
-				class="btn btn-primary">Enter new Klient</button> </a>
+		<a href="/admin/operatorzy/klienci/new"><button
+				value="operator : ${operator}" type="button" class="btn btn-primary">Enter
+				new Klient</button> </a>
 
 		<!-- Break Line -->
 		<br /> <br />
@@ -48,14 +49,17 @@
 					<td th:text="${klient.nr_klienta}">NR Klienta</td>
 					<td th:text="${klient.numer_kontaktu}">Numer Kontaktu</td>
 					<td th:text="${klient.adres_email}">Adres email</td>
-					<td th:text="${klient.data_zalozenia_konta}">Data zalozenia konta</td>
+					<td th:text="${klient.data_zalozenia_konta}">Data zalozenia
+						konta</td>
 					<!--<td th:text="${klient.nr_adresu}">Nr adresu</td>-->
 					<td><a
-						th:href="@{'/admin/operatorzy/klienci/edit/' + ${klient.nr_klienta}}"><button
-								type="button" class="btn btn-secondary">Edit</button></a>
-						&nbsp;&nbsp;&nbsp;&nbsp; <a
+						th:href="@{'/admin/operatorzy/klienci/{nr_operatora}/edit/' + ${klient.nr_klienta}}"><button
+								value="nr_operatora : ${operator.nr_operatora}" type="button"
+								class="btn btn-secondary">Edit</button></a> &nbsp;&nbsp;&nbsp;&nbsp;
+						<a
 						th:href="@{'/admin/operatorzy/klienci/delete/' + ${klient.nr_klienta}}"><button
-								type="button" class="btn btn-danger">Delete</button></a></td>
+								value="operator : ${operator}" type="button"
+								class="btn btn-danger">Delete</button></a></td>
 				</tr>
 			</tbody>
 		</table>
