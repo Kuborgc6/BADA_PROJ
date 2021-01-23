@@ -20,6 +20,8 @@ public class AppController {
 	@Autowired
 	private OperatorDAO dao;
 	@Autowired
+	private Klient_uslugaDAO dao_ku;
+	@Autowired
 	private UslugaDAO dao_l;
 
 	@RequestMapping("/")
@@ -78,108 +80,6 @@ public class AppController {
 
 	// ---------------------------------------------------
 	// ---------------------------------------------------
-
-	// Admin operatorzy view
-
-	@RequestMapping("/admin/operatorzy")
-	public String showAdminOperator(Model model) {
-		List<Operator> listOperator = dao.list();
-		model.addAttribute("listOperator", listOperator);
-
-		return "admin_operatorzy";
-	}
-
-	@RequestMapping("/admin/operatorzy/new")
-	public String showAdminOperatorzyNewForm(Model model) {
-		Operator operator = new Operator();
-		model.addAttribute("operator", operator);
-
-		return "admin_operatorzy_new_form";
-	}
-
-	@RequestMapping(value = "/admin/operatorzy/save", method = RequestMethod.POST)
-	public String adminOperatorzySave(@ModelAttribute("operator") Operator operator) {
-		dao.save(operator);
-
-		return "redirect:/admin/operatorzy";
-	}
-
-	@RequestMapping("/admin/operatorzy/edit/{nr_operatora}")
-	public ModelAndView showAdminOperatorzyEditForm(@PathVariable(name = "nr_operatora") int nr_operatora) {
-		ModelAndView mav = new ModelAndView("admin_operatorzy_edit_form");
-		Operator operator = dao.get(nr_operatora);
-		mav.addObject("operator", operator);
-		return mav;
-	}
-
-	@RequestMapping(value = "/admin/operatorzy/update", method = RequestMethod.POST)
-	public String updateAdminOperator(@ModelAttribute("operator") Operator operator) {
-		dao.update(operator);
-		return "redirect:/admin/operatorzy";
-	}
-
-	@RequestMapping(value = "/admin/operatorzy/delete/{nr_operatora}")
-	public String deleteAdminOperator(@ModelAttribute(name = "nr_operatora") int nr_operatora) {
-		dao.delete(nr_operatora);
-		return "redirect:/admin/operatorzy";
-	}
-
-	// ---------------------------------------------------
-	// Admin operatorzy klienci view
-
-	@RequestMapping("/admin/operatorzy/klienci/{nr_operatora}")
-	public String showAdminOperatorKlient(@ModelAttribute(name = "nr_operatora") int nr_operatora, Model model) {
-		List<Klient> listKlient = dao_k.connectOperatorzy(nr_operatora);
-		model.addAttribute("nr_operatora", nr_operatora);
-		Operator operator = dao.get(nr_operatora);
-		model.addAttribute("operator", operator);
-		model.addAttribute("listKlient", listKlient);
-
-		return "admin_operatorzy_klienci";
-	}
-	
-	@RequestMapping("/admin/operatorzy/klienci/new")/**/
-	public String showNewAdminOperatorKlienci(@ModelAttribute ("operator") Operator operator, Model model) {
-		Klient klient = new Klient();
-		/*model.addAttribute("nr_operatora", nr_operatora);
-		Operator operator = dao.get(nr_operatora);*/
-		model.addAttribute("operator", operator);
-		model.addAttribute("klient", klient);
-		return "admin_operatorzy_klienci_new";
-	}
-
-	@RequestMapping(value = "/admin/operatorzy/klienci/save", method = RequestMethod.POST)
-	public String saveAdminOperatorKlienci(@ModelAttribute ("nr_operatora") int nr_operatora, @ModelAttribute("klient") Klient klient, Model model) {
-		System.out.print(klient.toString());
-		dao_k.save(klient);
-		/*int nr_operatora = operator.getNr_operatora();*/
-		/*model.addAttribute("nr_operatora", nr_operatora);*/
-
-		return "redirect:/admin/operatorzy/{nr_operatora}";
-	}
-	
-	@RequestMapping("/admin/operatorzy/klienci/edit/{nr_klienta}")
-	public ModelAndView editAdminOperatorKlienci(@PathVariable(name = "nr_klienta") int nr_klienta) {
-		ModelAndView mav = new ModelAndView("admin_operatorzy_klienci_edit");
-		Klient klient = dao_k.get(nr_klienta);
-		mav.addObject("klient", klient);
-		return mav;
-	}
-	
-	@RequestMapping(value = "/admin/operatorzy/klienci/update", method = RequestMethod.POST)
-	public String updateAdminOperatorKlient(@ModelAttribute("klient") Klient klient) {
-		dao_k.update(klient);
-		return "redirect:/admin/operatorzy/klienci";
-	}
-	
-	@RequestMapping(value = "/admin/operatorzy/klienci/delete/{nr_klienta}")
-	public String deleteAdminOperatorKlient(@ModelAttribute(name = "nr_klienta") int nr_klienta) {
-		dao_k.delete(nr_klienta);
-		return "redirect:/admin/operatorzy/klienci";
-	}
-
-	// ---------------------------------------------------
-	// ---------------------------------------------------
 	// Admin uslugi view
 
 	@RequestMapping("/admin/uslugi")
@@ -189,7 +89,7 @@ public class AppController {
 
 		return "admin_uslugi";
 	}
-	
+
 	@RequestMapping("/admin/uslugi/new")
 	public String showNewAdminUslugi(Model model) {
 		Usluga usluga = new Usluga();
@@ -197,7 +97,7 @@ public class AppController {
 
 		return "admin_uslugi_new";
 	}
-	
+
 	@RequestMapping(value = "/admin/uslugi/save", method = RequestMethod.POST)
 	public String saveAdminUslugi(@ModelAttribute("usluga") Usluga usluga) {
 		System.out.print(usluga.toString());
@@ -205,7 +105,7 @@ public class AppController {
 
 		return "redirect:/admin/uslugi";
 	}
-	
+
 	@RequestMapping("/admin/uslugi/edit/{nr_uslugi}")
 	public ModelAndView editAdminUslugi(@PathVariable(name = "nr_uslugi") int nr_uslugi) {
 		ModelAndView mav = new ModelAndView("admin_uslugi_edit");
@@ -213,7 +113,7 @@ public class AppController {
 		mav.addObject("usluga", usluga);
 		return mav;
 	}
-	
+
 	@RequestMapping(value = "/admin/uslugi/update", method = RequestMethod.POST)
 	public String updateAdminUsluga(@ModelAttribute("uslugi") Usluga usluga) {
 		System.out.print(usluga.toString());
@@ -221,23 +121,77 @@ public class AppController {
 		dao_l.update(usluga);
 		return "redirect:/admin/uslugi";
 	}
-	
+
 	@RequestMapping(value = "/admin/uslugi/delete/{nr_uslugi}")
 	public String deleteAdminUsluga(@ModelAttribute(name = "nr_uslugi") int nr_uslugi) {
 		dao_l.delete(nr_uslugi);
+		dao_ku.deleteUsluga(nr_uslugi);
 		return "redirect:/admin/uslugi";
 	}
-	
+
 	// ---------------------------------------------------
-	// Admin uslugi operator view 
-	@RequestMapping("/admin/uslugi/operator/{nr_uslugi}")
-	public ModelAndView editAdminUslugiOperator(@PathVariable(name = "nr_uslugi") int nr_uslugi) {
-		ModelAndView mav = new ModelAndView("admin_uslugi_operator");
-		Operator operator = dao.connectKlient(nr_uslugi);
-		mav.addObject("operator", operator);
+	// Admin uslugi klient view //,@ModelAttribute(name = "usluga") Usluga usluga
+	@RequestMapping("/admin/uslugi/klienci/{nr_uslugi}")
+	public ModelAndView editAdminUslugiKlient(@PathVariable(name = "nr_uslugi") int nr_uslugi ) {
+		ModelAndView mav = new ModelAndView("admin_uslugi_klienci");
+		List<Klient> listKlient = dao_k.connectUslugi(nr_uslugi);
+		Usluga usluga = dao_l.get(nr_uslugi);
+		mav.addObject("usluga",usluga);
+		mav.addObject("listKlient", listKlient);
+		System.out.print(usluga.toString());
+		System.out.print(mav.toString());
 		return mav;
+	}	
+	
+	@RequestMapping("/admin/uslugi/klienci/new/{nr_uslugi}")
+	public String showNewAdminUslugiKlienci(Model model, @PathVariable(name = "nr_uslugi") int nr_uslugi) {
+		Klient klient = new Klient();
+		model.addAttribute("klient", klient);
+		
+		//model.addAttribute("nr_uslugi", nr_uslugi);
+		Usluga usluga = dao_l.get(nr_uslugi);
+		model.addAttribute("usluga",usluga);
+		System.out.print(model.toString());
+		System.out.print(usluga.toString());
+		return "admin_uslugi_klienci_new";
+	}
+
+	@RequestMapping(value = "/admin/uslugi/klienci/save/{nr_uslugi}", method = RequestMethod.POST)
+	public String saveAdminUslugiKlienci(@ModelAttribute("klient") Klient klient, @PathVariable(name = "nr_uslugi") int nr_uslugi) {
+		System.out.print(klient.toString());
+		Usluga usluga = dao_l.get(nr_uslugi);
+		dao_k.save(klient);
+		
+		Klient_usluga klient_usluga = new Klient_usluga(klient.getNr_klienta(), usluga.getNr_uslugi());
+		dao_ku.saveKlientUslugi(klient_usluga);
+
+		return "redirect:/admin/uslugi/klienci/{nr_uslugi}";//klienci/{nr_uslugi}
 	}
 	
+	
+	@RequestMapping("/admin/uslugi/klienci/{nr_uslugi}/edit/{nr_klienta}")
+	public ModelAndView editAdminUslugiKlienci(@PathVariable(name = "nr_klienta") int nr_klienta, @PathVariable(name = "nr_uslugi") int nr_uslugi) {
+		ModelAndView mav = new ModelAndView("admin_uslugi_klienci_edit");
+		Klient klient = dao_k.get(nr_klienta);
+		Usluga usluga = dao_l.get(nr_uslugi);
+		mav.addObject("usluga",usluga);
+
+		mav.addObject("klient", klient);
+		return mav;
+	}
+
+	@RequestMapping(value = "/admin/uslugi/klienci/{nr_uslugi}/update", method = RequestMethod.POST)
+	public String updateAdminUslugiKlienci(@ModelAttribute("klient") Klient klient, @PathVariable(name = "nr_uslugi") int nr_uslugi) {
+		dao_k.update(klient);
+		return "redirect:/admin/uslugi/klienci/{nr_uslugi}";
+	}
+	
+	@RequestMapping(value = "/admin/klienci/uslugi/klienci/{nr_uslugi}/delete/{nr_klienta}")
+	public String deleteAdminUslugiKlient(@ModelAttribute(name = "nr_klienta") int nr_klienta, @PathVariable(name = "nr_uslugi") int nr_uslugi) {
+		dao_k.delete(nr_klienta);
+		dao_ku.deleteKlient(nr_klienta);
+		return "redirect:/admin/uslugi/klienci/{nr_uslugi}";
+	}
 
 	// ---------------------------------------------------
 	// ---------------------------------------------------
@@ -266,7 +220,7 @@ public class AppController {
 
 		return "redirect:/admin/klienci";
 	}
-	
+
 	@RequestMapping("/admin/klienci/edit/{nr_klienta}")
 	public ModelAndView editAdminKlienci(@PathVariable(name = "nr_klienta") int nr_klienta) {
 		ModelAndView mav = new ModelAndView("admin_klienci_edit");
@@ -274,26 +228,53 @@ public class AppController {
 		mav.addObject("klient", klient);
 		return mav;
 	}
-	
+
 	@RequestMapping(value = "/admin/klienci/update", method = RequestMethod.POST)
 	public String updateAdminKlient(@ModelAttribute("klient") Klient klient) {
 		dao_k.update(klient);
 		return "redirect:/admin/klienci";
 	}
-	
+
 	@RequestMapping(value = "/admin/klienci/delete/{nr_klienta}")
 	public String deleteAdminKlient(@ModelAttribute(name = "nr_klienta") int nr_klienta) {
 		dao_k.delete(nr_klienta);
+		dao_ku.deleteKlient(nr_klienta);
 		return "redirect:/admin/klienci";
 	}
-	
-	//-------------------------------------
-	@RequestMapping("/admin/klienci/operator/{nr_klienta}")
-	public ModelAndView editAdminKlienciOperator(@PathVariable(name = "nr_klienta") int nr_klienta) {
-		ModelAndView mav = new ModelAndView("admin_klienci_operator");
-		Operator operator = dao.connectKlient(nr_klienta);
-		mav.addObject("operator", operator);
+
+	// -------------------------------------
+	@RequestMapping("/admin/klienci/uslugi/{nr_klienta}")
+	public ModelAndView editAdminKlienciUslugi(@PathVariable(name = "nr_klienta") int nr_klienta) {
+		ModelAndView mav = new ModelAndView("admin_klienci_uslugi");
+		List<Usluga> listUsluga = dao_l.connectKlient(nr_klienta);
+		mav.addObject("listUsluga", listUsluga);
+		Klient klient = dao_k.get(nr_klienta);
+		mav.addObject(klient);
 		return mav;
+	}
+	
+	
+	@RequestMapping("/admin/klienci/uslugi/{nr_klienta}/new")
+	public ModelAndView newKlienciUsluga(@PathVariable(name = "nr_klienta") int nr_klienta) {
+		ModelAndView mav = new ModelAndView("admin_klienci_uslugi_new");
+		List<Usluga> listUsluga = dao_l.connectKlientNOT(nr_klienta);
+		mav.addObject("listUsluga", listUsluga);
+		Klient klient = dao_k.get(nr_klienta);
+		mav.addObject(klient);
+		return mav;
+	}
+	
+	@RequestMapping("/admin/klienci/uslugi/{nr_klienta}/add/{nr_uslugi}")
+	public String addKlienciUsluga(@PathVariable(name = "nr_klienta") int nr_klienta, @PathVariable(name = "nr_uslugi") int nr_uslugi) {
+		Klient_usluga klient_usluga = new Klient_usluga(nr_klienta, nr_uslugi);
+		dao_ku.saveKlientUslugi(klient_usluga);
+		return "redirect:/admin/klienci/uslugi/{nr_klienta}";
+	}
+	
+	@RequestMapping("/admin/klienci/uslugi/{nr_klienta}/delete/{nr_uslugi}")
+	public String deleteKlienciUsluga(@PathVariable(name = "nr_klienta") int nr_klienta, @PathVariable(name = "nr_uslugi") int nr_uslugi) {
+		dao_ku.deleteKlientUsluga(nr_klienta, nr_uslugi);
+		return "redirect:/admin/klienci/uslugi/{nr_klienta}";
 	}
 
 }

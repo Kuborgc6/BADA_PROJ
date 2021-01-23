@@ -9,9 +9,10 @@ import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.stereotype.Repository;
+
 @Repository
 public class KlientDAO {
-	
+
 	@Autowired
 	/* Import org.springframework.jd..Template */
 	private JdbcTemplate jdbcTemplate;
@@ -34,7 +35,7 @@ public class KlientDAO {
 	public void save(Klient klient) {
 		SimpleJdbcInsert insertActor = new SimpleJdbcInsert(jdbcTemplate);
 		insertActor.withTableName("klienci").usingColumns("nr_klienta", "numer_kontaktu", "adres_email",
-				"data_zalozenia_konta","nr_adresu");
+				"data_zalozenia_konta", "nr_adresu");
 		/**/
 
 		BeanPropertySqlParameterSource param = new BeanPropertySqlParameterSource(klient);
@@ -74,16 +75,15 @@ public class KlientDAO {
 		return listUslugaKlient;
 	}
 
-	/* Show all klients in certain Operatorzy */
-	public List<Klient> connectOperatorzy(int nr_operatora) {
-		Object[] args = { nr_operatora };
+	/* Show all klients which are not in certain Usluga */
+	public List<Klient> connectNOTUslugi(int nr_uslugi) {
+		Object[] args = { nr_uslugi };
 		String sql = "select klienci.nr_klienta, klienci.NUMER_KONTAKTU, klienci.ADRES_EMAIL, klienci.DATA_ZALOZENIA_KONTA, klienci.nr_adresu from klienci\r\n"
 				+ "join Klient_Usługa\r\n" + "on klienci.nr_klienta = Klient_Usługa.nr_klienta\r\n" + "join uslugi\r\n"
-				+ "on Klient_Usługa.nr_uslugi = uslugi.nr_uslugi\r\n" + "join operatorzy\r\n"
-				+ "on uslugi.NR_OPERATORA = operatorzy.NR_OPERATORA\r\n" + "where operatorzy.NR_OPERATORA = " + args[0];
+				+ "on Klient_Usługa.nr_uslugi = uslugi.nr_uslugi\r\n" + "where NOT uslugi.nr_uslugi = " + args[0];
 
-		List<Klient> listOperatorKlient = jdbcTemplate.query(sql, BeanPropertyRowMapper.newInstance(Klient.class));
-		return listOperatorKlient;
+		List<Klient> listUslugaKlient = jdbcTemplate.query(sql, BeanPropertyRowMapper.newInstance(Klient.class));
+		return listUslugaKlient;
 	}
 
 }

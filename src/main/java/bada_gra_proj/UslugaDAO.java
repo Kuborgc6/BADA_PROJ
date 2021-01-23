@@ -57,13 +57,6 @@ public class UslugaDAO {
 		NamedParameterJdbcTemplate template = new NamedParameterJdbcTemplate(jdbcTemplate);
 		template.update(sql, param);
 	}
-	
-	public void update(Operator operator) {
-		String sql = "UPDATE OPERATORZY SET nazwa=:nazwa, data_zalozenia=:data_zalozenia, kraj_centrali=:kraj_centrali, NIP=:NIP WHERE nr_operatora=:nr_operatora";
-		BeanPropertySqlParameterSource param = new BeanPropertySqlParameterSource(operator);
-		NamedParameterJdbcTemplate template = new NamedParameterJdbcTemplate(jdbcTemplate);
-		template.update(sql, param);
-	}
 
 	/* Delete */
 	public void delete(int nr_uslugi) {
@@ -71,27 +64,28 @@ public class UslugaDAO {
 		jdbcTemplate.update(sql, nr_uslugi);
 	}
 	
-	/* Show all Uslugi in certain Operatorzy */
-	public List<Usluga> connectOperatorzy(int nr_operatora) {
-		Object[] args = { nr_operatora };
-		String sql = "select uslugi.KOSZT, uslugi.NAZWA, uslugi.NR_OPERATORA, uslugi.NR_USLUGI from uslugi\r\n"
-				+ "join operatorzy\r\n"
-				+ "on uslugi.NR_OPERATORA = operatorzy.NR_OPERATORA--;\r\n"
-				+ "where operatorzy.NR_OPERATORA = " + args[0];
-
-		List<Usluga> listUslugaOpertor = jdbcTemplate.query(sql, BeanPropertyRowMapper.newInstance(Usluga.class));
-		return listUslugaOpertor;
-	}
-
 	/* Show all Uslugi in certain Klient */
 	public List<Usluga> connectKlient(int nr_klienta) {
 		Object[] args = { nr_klienta };
-		String sql = "select uslugi.KOSZT, uslugi.NAZWA, uslugi.NR_OPERATORA, uslugi.NR_USLUGI from uslugi\r\n"
+		String sql = "select uslugi.KOSZT, uslugi.NAZWA, uslugi.NR_OPERATORA, uslugi.NR_USLUGI from uslugi \r\n"
 				+ "join Klient_Usługa\r\n"
 				+ "on Klient_Usługa.nr_uslugi = uslugi.nr_uslugi\r\n"
 				+ "join klienci\r\n"
 				+ "on klienci.nr_klienta = Klient_Usługa.nr_klienta\r\n"
 				+ "where klienci.nr_klienta = " + args[0];
+
+		List<Usluga> listUslugaKlient = jdbcTemplate.query(sql, BeanPropertyRowMapper.newInstance(Usluga.class));
+		return listUslugaKlient;
+	}
+	
+	public List<Usluga> connectKlientNOT(int nr_uslugi) {
+		Object[] args = { nr_uslugi };
+		String sql = "select uslugi.NR_USLUGI, uslugi.NAZWA, uslugi.KOSZT, uslugi.NR_OPERATORA from uslugi\r\n"
+				+ "join Klient_Usługa\r\n"
+				+ "on Klient_Usługa.nr_uslugi = uslugi.nr_uslugi\r\n"
+				+ "join klienci\r\n"
+				+ "on klienci.nr_klienta = Klient_Usługa.nr_klienta\r\n"
+				+ "where NOT klienci.nr_klienta = " + args[0];
 
 		List<Usluga> listUslugaKlient = jdbcTemplate.query(sql, BeanPropertyRowMapper.newInstance(Usluga.class));
 		return listUslugaKlient;

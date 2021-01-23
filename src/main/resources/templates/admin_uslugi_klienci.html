@@ -5,23 +5,26 @@
 
 <head>
 <meta charset="UTF-8">
-<title>Admin klienci</title>
+<title>Admin Uslugi klienci</title>
 
 </head>
 
 <body>
 	<div align="center">
 		<!-- Page header -->
-		<h1>Klienci Records</h1>
+		<h1>Klienci Records in Usluga</h1>
 		<!-- Entry to the new page -->
-		<a href="/admin"><button type="button" class="btn btn-success">Return
-				to main admin site</button> </a>
+		<a href="/admin/uslugi"><button type="button"
+				class="btn btn-success">Return to main uslugi site</button> </a>
 
 		<!-- Break Line -->
 		<br /> <br />
 		<!-- Entry to the new page -->
-		<a href="/admin/klienci/new"><button type="button"
-				class="btn btn-primary">Enter new Klient</button> </a>
+		<!-- "@{'/admin/uslugi/klienci/' + ${usluga.nr_uslugi}}" -->
+		<a
+			th:href="@{/admin/uslugi/klienci/new/{nr_uslugi}(nr_uslugi=${usluga.nr_uslugi})}"><button
+				type="button" th:usluga="${usluga}" class="btn btn-primary">Enter
+				new Klient</button> </a>
 
 		<!-- Break Line -->
 		<br /> <br />
@@ -37,8 +40,6 @@
 					<th>Numer Kontaktu</th>
 					<th>Adres email</th>
 					<th>Data zalozenia konta</th>
-					<!-- <th>Nr adresu</th> -->
-					<th>Uslugi</th>
 					<th>Akcja</th>
 				</tr>
 			</thead>
@@ -52,15 +53,13 @@
 					<td th:text="${klient.data_zalozenia_konta}">Data zalozenia
 						konta</td>
 					<td><a
-						th:href="@{'/admin/klienci/uslugi/' + ${klient.nr_klienta}}"><button
-								type="button" class="btn btn-warning">Uslugi</button></a>
-					<td><a
-						th:href="@{'/admin/klienci/edit/' + ${klient.nr_klienta}
+						th:href="@{/admin/uslugi/klienci/{nr_uslugi}/edit/{nr_klienta}(nr_uslugi=${usluga.nr_uslugi},nr_klienta=${klient.nr_klienta})
 					}"><button
 								type="button" class="btn btn-secondary">Edit</button></a>
 						&nbsp;&nbsp;&nbsp;&nbsp; <a
-						th:href="@{'/admin/klienci/delete/' + ${klient.nr_klienta}}"><button
-								type="button" class="btn btn-danger">Delete</button></a></td>
+						th:href="@{/admin/klienci/uslugi/klienci/{nr_uslugi}/delete/{nr_klienta}(nr_uslugi=${usluga.nr_uslugi},nr_klienta=${klient.nr_klienta})}">
+							<button type="button" class="btn btn-danger">Delete</button>
+					</a></td>
 				</tr>
 			</tbody>
 		</table>
