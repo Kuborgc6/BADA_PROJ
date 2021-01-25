@@ -44,6 +44,45 @@ public class AppController {
 		
 		return mav;
 	}
+	
+	@RequestMapping("/klient_view/{nr_klienta}/edit")
+	public ModelAndView editKlient(@PathVariable(name = "nr_klienta") int nr_klienta) {
+		ModelAndView mav = new ModelAndView("klient_edit");
+		Klient klient = dao_k.get(nr_klienta);
+		mav.addObject("klient", klient);
+		return mav;
+	}
+	
+	@RequestMapping(value = "/klient/update/{nr_klienta}", method = RequestMethod.POST)
+	public String updateKlient(@PathVariable(name = "nr_klienta") int nr_klienta, @ModelAttribute("klient") Klient klient) {
+		dao_k.update(klient);
+		return "redirect:/klient_view/{nr_klienta}";
+	}
+		
+	@RequestMapping("/klient_view/{nr_klienta}/uslugi/new")
+	public ModelAndView newKlientUsluga(@PathVariable(name = "nr_klienta") int nr_klienta) {
+		ModelAndView mav = new ModelAndView("klient_usluga_new");
+		List<Usluga> listUsluga = dao_l.connectKlientNOT(nr_klienta);
+		mav.addObject("listUsluga", listUsluga);
+		Klient klient = dao_k.get(nr_klienta);
+		mav.addObject(klient);
+		return mav;
+	}
+	
+	@RequestMapping("/klient_view/uslugi/{nr_klienta}/add/{nr_uslugi}")
+	public String addKlientUsluga(@PathVariable(name = "nr_klienta") int nr_klienta,
+			@PathVariable(name = "nr_uslugi") int nr_uslugi) {
+		Klient_usluga klient_usluga = new Klient_usluga(nr_klienta, nr_uslugi);
+		dao_ku.saveKlientUslugi(klient_usluga);
+		return "redirect:/klient_view/{nr_klienta}";
+	}
+	
+	@RequestMapping("/klient_view/{nr_klienta}/uslugi/delete/{nr_uslugi}")
+	public String deleteKlientUsluga(@PathVariable(name = "nr_klienta") int nr_klienta,
+			@PathVariable(name = "nr_uslugi") int nr_uslugi) {
+		dao_ku.deleteKlientUsluga(nr_klienta, nr_uslugi);
+		return "redirect:/klient_view/{nr_klienta}";
+	}
 
 	// ---------------------------------------------------
 	// ---------------------------------------------------

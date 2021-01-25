@@ -42,11 +42,16 @@ public class Klient_uslugaDAO {
 	}
 	
 	
-	public void deleteKlientUsluga(int nr_uslugi, int nr_klienta) {
-		String sql = "DELETE FROM Klient_Usługa WHERE nr_uslugi = " + nr_uslugi + " AND nr_klienta = " + nr_klienta;
-		jdbcTemplate.update(sql, nr_uslugi);
+	public void deleteKlientUsluga(int nr_klienta, int nr_uslugi) {
+		String sql = "DELETE FROM Klient_Usługa WHERE Klient_Usługa.nr_klienta = " + nr_klienta + " AND Klient_Usługa.nr_uslugi = " + nr_uslugi;
+		jdbcTemplate.update(sql);
 	}
-
+	
+	
+	public void selectKlientUsluga(int nr_klienta, int nr_uslugi) {
+		String sql = "SELECT * FROM Klient_Usługa WHERE Klient_Usługa.nr_klienta = " + nr_klienta + " AND Klient_Usługa.nr_uslugi = " + nr_uslugi;
+		jdbcTemplate.update(sql);
+	}
 
 	
 

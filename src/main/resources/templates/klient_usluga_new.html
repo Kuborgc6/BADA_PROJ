@@ -5,7 +5,7 @@
 
 <head>
 <meta charset="UTF-8">
-<title>Klient View</title>
+<title>Admin klient uslugi</title>
 
 </head>
 
@@ -14,24 +14,10 @@
 		<!-- Page header -->
 		<h1>Uslugi Records in Klient</h1>
 		<!-- Entry to the new page -->
-		<a th:href="@{/}"><button type="button" class="btn btn-success">Return
-				to main site</button> </a>
-
-		<!-- Break Line -->
-		<br /> <br />
-		<!-- Entry to the edit -->
-		<a th:nr_klienta="${nr_klienta}"
-			th:href="@{/klient_view/{nr_klienta}/edit?(nr_klienta=${nr_klienta})}"><button
-				type="button" class="btn btn-primary">Edit your values</button> </a>
-
-		<!-- Break Line -->
-		<br /> <br />
-		<!-- Entry to the add Uslugi -->
-		<a th:nr_klienta="${nr_klienta}"
-			th:href="@{/klient_view/{nr_klienta}/uslugi/new?(nr_klienta=${nr_klienta})}"><button
-				type="button" class="btn btn-warning">Enter new Uslugi to
-				Klient</button> </a>
-
+		<a
+			th:href="@{/klient_view/{nr_klienta}(nr_klienta=${klient.nr_klienta})}"><button
+				th:klient="${klient}" type="button" class="btn btn-primary">Return
+				to main page</button> </a>
 		<!-- Break Line -->
 		<br /> <br />
 
@@ -58,9 +44,8 @@
 					<td th:text="${usluga.nazwa}">Nazwa</td>
 					<td th:text="${usluga.koszt}">Koszt</td>
 					<td><a
-						th:href="@{/klient_view/{nr_klienta}/uslugi/delete/{nr_uslugi}(nr_klienta=${klient.nr_klienta},nr_uslugi=${usluga.nr_uslugi})}"><button
-								th:klient="${klient}" type="button" class="btn btn-danger">Delete
-								from Klient</button></a></td>
+						th:href="@{/klient_view/uslugi/{nr_klienta}/add/{nr_uslugi}(nr_klienta=${klient.nr_klienta},nr_uslugi=${usluga.nr_uslugi})}"><button
+								type="button" class="btn btn-warning">Add to Klient</button></a></td>
 				</tr>
 			</tbody>
 		</table>
