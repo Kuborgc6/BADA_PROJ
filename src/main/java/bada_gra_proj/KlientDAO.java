@@ -49,6 +49,13 @@ public class KlientDAO {
 		Klient klient = jdbcTemplate.queryForObject(sql, BeanPropertyRowMapper.newInstance(Klient.class));
 		return klient;
 	}
+	
+	public Klient get_mail(String adres_email) {
+		Object[] args = { adres_email };
+		String sql = "SELECT * FROM KLIENCI WHERE adres_email = " + args[0];
+		Klient klient = jdbcTemplate.queryForObject(sql, BeanPropertyRowMapper.newInstance(Klient.class));
+		return klient;
+	}
 
 	/* Update */
 	public void update(Klient klient) {

@@ -78,14 +78,14 @@ public class UslugaDAO {
 		return listUslugaKlient;
 	}
 	
-	public List<Usluga> connectKlientNOT(int nr_uslugi) {
-		Object[] args = { nr_uslugi };
+	public List<Usluga> connectKlientNOT(int nr_klienta) {
+		Object[] args = { nr_klienta };
 		String sql = "select uslugi.NR_USLUGI, uslugi.NAZWA, uslugi.KOSZT, uslugi.NR_OPERATORA from uslugi\r\n"
+				+ "minus\r\n"
+				+ "select uslugi.NR_USLUGI, uslugi.NAZWA, uslugi.KOSZT, uslugi.NR_OPERATORA from uslugi \r\n"
 				+ "join Klient_Usługa\r\n"
 				+ "on Klient_Usługa.nr_uslugi = uslugi.nr_uslugi\r\n"
-				+ "join klienci\r\n"
-				+ "on klienci.nr_klienta = Klient_Usługa.nr_klienta\r\n"
-				+ "where NOT klienci.nr_klienta = " + args[0];
+				+ "where Klient_Usługa.nr_klienta = " + args[0];
 
 		List<Usluga> listUslugaKlient = jdbcTemplate.query(sql, BeanPropertyRowMapper.newInstance(Usluga.class));
 		return listUslugaKlient;

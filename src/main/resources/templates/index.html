@@ -12,54 +12,33 @@
 <body>
 	<div align="center">
 		<!-- Page header -->
-		<h1>Operatorzy Records</h1>
+		<h1>Insert adres email</h1>
 
-		<!-- Entry to the new page -->
-		<a href="/new"><button type="button" class="btn btn-primary">Enter
-				new Operator</button> </a>
-
-		<!-- Break Line -->
+		<!-- End line/ new line -->
+		<br />
+		<!-- End line/ new line -->
 		<br /> <br />
+		<!-- th:object="*${adres_email}" -->
+		<form action="#" th:action="@{/klient_view/{nr_klienta}(nr_klienta=${login.nr_klienta})}" th:object="${login}"
+			th:id method="post">
 
-		<!--Enter new Operator-->
 
-		<!-- Table -->
-		<table border="1" cellpadding="10">
-			<!-- Table header -->
-			<thead>
+			<!-- Table -->
+			<table border="1" cellpadding="10">
+				<!-- Table (first) row -->
 				<tr>
-					<th>NR Operatora</th>
-					<th>Nazwa</th>
-					<th>Data Zalozenia</th>
-					<th>Kraj Centrali</th>
-					<th>NIP</th>
-					<th>Akcja</th>
+					<td>Nr klienta:</td>
+					<td><input type="text" name="nr_klienta" th:field="*{nr_klienta}"></td>
 				</tr>
-			</thead>
-
-			<!-- Table body -->
-			<tbody>
-				<tr th:each="operator : ${listOperator}">
-					<td th:text="${operator.nr_operatora}">NR Operatora</td>
-					<td th:text="${operator.nazwa}">Nazwa</td>
-					<td th:text="${operator.data_zalozenia}">Data Zalozenia</td>
-					<td th:text="${operator.kraj_centrali}">Kraj Centrali</td>
-					<td th:text="${operator.NIP}">NIP</td>
-					<!--<td>
-					<a th:href="@{'/edit/' + ${operator.nr_operatora}}">Edit</a>
-					</td>-->
-					<td><a th:href="@{'/edit/' + ${operator.nr_operatora}}"><button
-								type="button" class="btn btn-secondary">Edit</button></a>
-						&nbsp;&nbsp;&nbsp;&nbsp; <a
-						th:href="@{'/delete/' + ${operator.nr_operatora}}"><button
-								type="button" class="btn btn-danger">Delete</button></a></td>
-					<!-- <button
-								type="button" class="btn btn-danger">Delete</button> -->
+				<!-- Button save -->
+				<tr>
+					<td colspan="2"><button type="submit" th:nr_klienta = ${nr_klienta}
+							class="btn btn-outline-secondary">Enter</button></td>
 				</tr>
-			</tbody>
-		</table>
-
+			</table>
+		</form>
 	</div>
+
 	<link
 		href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css"
 		rel="stylesheet"
@@ -70,5 +49,4 @@
 		integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW"
 		crossorigin="anonymous"></script>
 </body>
-
 </html>
