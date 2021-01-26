@@ -18,8 +18,6 @@ public class AppController {
 	@Autowired
 	private KlientDAO dao_k;
 	@Autowired
-	private OperatorDAO dao;
-	@Autowired
 	private Klient_uslugaDAO dao_ku;
 	@Autowired
 	private UslugaDAO dao_l;

@@ -4,38 +4,31 @@
 
 <head>
 <meta charset="UTF-8">
-<title>Admin Edit Klienci</title>
+<title>New Klient</title>
 </head>
 
-
 <body>
+
 	<div align="center">
 		<!-- Page header -->
-		<h1>Admin Edit Klient</h1>
-
-		<!-- End line/ new line -->
-		<br />
+		<h1>Enter New Klient</h1>
 
 		<!-- Entry to the main page -->
-		<a
-			th:href="@{/admin/uslugi/klienci/{nr_uslugi}(nr_uslugi=${usluga.nr_uslugi})}"><button
-				type="button" class="btn btn-primary">Return to usluga page</button>
-		</a>
+		<a href="/admin/klienci"><button type="button"
+				class="btn btn-primary">Return to admin klienci page</button> </a>
 
-		<!-- End line/ new line -->
+		<!-- End line/new line -->
 		<br /> <br />
 
-		<form action="#" th:action="@{/admin/uslugi/klienci/{nr_uslugi}/update?(nr_uslugi=${usluga.nr_uslugi})}"
-			th:object="${klient}" method="post">
-
-
+		<form action="#" th:action="@{/admin/klienci/save}"
+			th:object="${klient}" th:id method="post">
 			<!-- Table -->
 			<table border="1" cellpadding="10">
+
 				<!-- Table (first) row -->
 				<tr>
 					<td>Nr Klienta:</td>
-					<td><input type="text" th:field="*{nr_klienta}"
-						readonly="readonly"></td>
+					<td><input type="text" th:field="*{nr_klienta}"></td>
 				</tr>
 
 				<!-- Table (second) row -->
@@ -52,17 +45,17 @@
 
 				<!-- Table (fourth) row -->
 				<tr>
-					<td>Data zalozenia kontra:</td>
+					<td>Data zalożenia konta:</td>
 					<td><input type="text" th:field="*{data_zalozenia_konta}"></td>
 				</tr>
 
 				<!-- Table (fifth) row -->
 				<tr>
 					<td>Nr adresu:</td>
-					<td><input type="text" th:field="*{nr_adresu}" readonly="readonly"></td>
+					<td><input type="text" th:field="*{nr_adresu}"></td>
 				</tr>
 
-				<!-- Button save -->
+				<!-- Button -->
 				<tr>
 					<td colspan="2"><button type="submit"
 							class="btn btn-outline-secondary">Save</button></td>
@@ -70,7 +63,6 @@
 			</table>
 		</form>
 	</div>
-
 	<link
 		href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css"
 		rel="stylesheet"
@@ -80,5 +72,7 @@
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"
 		integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW"
 		crossorigin="anonymous"></script>
+
 </body>
+
 </html>

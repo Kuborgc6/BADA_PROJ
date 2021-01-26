@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<meta charset="UTF-8">
+<title>Admin klient uslugi</title>
+
+</head>
+
+<body>
+	<div align="center">
+		<!-- Page header -->
+		<h1>Uslugi Records in Klient</h1>
+		<!-- Entry to the new page -->
+		<a th:href="@{/admin/klienci}"><button type="button" class="btn btn-success">Return
+				to previous admin site</button> </a>
+
+		<!-- Break Line -->
+		<br /> <br />
+		<!-- Entry to the new page -->
+		<a th:href="@{/admin/klienci/uslugi/{nr_klienta}/new?(nr_klienta=${klient.nr_klienta})}"><button type="button"
+				class="btn btn-primary">Enter new Uslugi to Klient</button> </a>
+
+		<!-- Break Line -->
+		<br /> <br />
+
+		<!--Enter new Operator-->
+
+		<!-- Table -->
+		<table border="1" cellpadding="10">
+			<!-- Table header -->
+			<thead>
+				<tr>
+					<th>NR Uslugi</th>
+					<th>Nazwa</th>
+					<th>Koszt</th>
+					<!-- <th>Nr operatora</th>
+					<th>Nr adresu</th> -->
+					<th>Akcja</th>
+				</tr>
+			</thead>
+
+			<!-- Table body -->
+			<tbody>
+				<tr th:each="usluga : ${listUsluga}">
+					<td th:text="${usluga.nr_uslugi}">NR Klienta</td>
+					<td th:text="${usluga.nazwa}">Nazwa</td>
+					<td th:text="${usluga.koszt}">Koszt</td>
+					<td><a
+						th:href="@{/admin/klienci/uslugi/{nr_klienta}/delete/{nr_uslugi}(nr_klienta=${klient.nr_klienta},nr_uslugi=${usluga.nr_uslugi})}"><button
+								type="button" class="btn btn-danger">Delete from Klient</button></a></td>
+				</tr>
+			</tbody>
+		</table>
+
+	</div>
+	<link
+		href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css"
+		rel="stylesheet"
+		integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1"
+		crossorigin="anonymous">
+	<script
+		src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"
+		integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW"
+		crossorigin="anonymous"></script>
+</body>
+
+</html>

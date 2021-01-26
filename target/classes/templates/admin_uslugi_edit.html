@@ -1,39 +1,63 @@
 <!DOCTYPE html>
-
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:th="http://www.thymeleaf.org">
 
 <head>
 <meta charset="UTF-8">
-<title>Operator Manager Application</title>
-
+<title>Admin Edit Uslugi</title>
 </head>
+
 
 <body>
 	<div align="center">
 		<!-- Page header -->
-		<h1>Insert nr Klienta</h1>
+		<h1>Admin Edit Usluga</h1>
 
 		<!-- End line/ new line -->
 		<br />
+
+		<!-- Entry to the main page -->
+		<a href="/admin/uslugi"><button type="button"
+				class="btn btn-primary">Return to main page</button> </a>
+
 		<!-- End line/ new line -->
 		<br /> <br />
-		<!-- th:object="*${adres_email}" -->
-		<form action="#" th:action="@{/klient_view/{nr_klienta}(nr_klienta=${login.nr_klienta})}" th:object="${login}"
-			th:id method="post">
+
+		<form action="#" th:action="@{/admin/uslugi/update}"
+			th:object="${usluga}" method="post">
 
 
 			<!-- Table -->
 			<table border="1" cellpadding="10">
 				<!-- Table (first) row -->
 				<tr>
-					<td>Nr klienta:</td>
-					<td><input type="text" name="nr_klienta" th:field="*{nr_klienta}"></td>
+					<td>Nr Uslugi:</td>
+					<td><input type="text" th:field="*{nr_uslugi}"
+						readonly="readonly"></td>
 				</tr>
+
+				<!-- Table (second) row -->
+				<tr>
+					<td>Nazwa:</td>
+					<td><input type="text" th:field="*{nazwa}"></td>
+				</tr>
+
+				<!-- Table (third) row -->
+				<tr>
+					<td>Koszt:</td>
+					<td><input type="text" th:field="*{koszt}"></td>
+				</tr>
+
+				<!-- Table (fourth) row -->
+				<tr>
+					<td>Nr operatora:</td>
+					<td><input type="text" th:field="*{nr_operatora}"></td>
+				</tr>
+
 				<!-- Button save -->
 				<tr>
-					<td colspan="2"><button type="submit" th:nr_klienta = "${nr_klienta}"
-							class="btn btn-outline-secondary">Enter</button></td>
+					<td colspan="2"><button type="submit"
+							class="btn btn-outline-secondary">Save</button></td>
 				</tr>
 			</table>
 		</form>

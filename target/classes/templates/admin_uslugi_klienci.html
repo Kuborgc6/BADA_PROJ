@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<meta charset="UTF-8">
+<title>Admin Uslugi klienci</title>
+
+</head>
+
+<body>
+	<div align="center">
+		<!-- Page header -->
+		<h1>Klienci Records in Usluga</h1>
+		<!-- Entry to the new page -->
+		<a href="/admin/uslugi"><button type="button"
+				class="btn btn-success">Return to main uslugi site</button> </a>
+
+		<!-- Break Line -->
+		<br /> <br />
+		<!-- Entry to the new page -->
+		<!-- "@{'/admin/uslugi/klienci/' + ${usluga.nr_uslugi}}" -->
+		<a
+			th:href="@{/admin/uslugi/klienci/new/{nr_uslugi}(nr_uslugi=${usluga.nr_uslugi})}"><button
+				type="button" th:usluga="${usluga}" class="btn btn-primary">Enter
+				new Klient</button> </a>
+
+		<!-- Break Line -->
+		<br /> <br />
+
+		<!--Enter new Operator-->
+
+		<!-- Table -->
+		<table border="1" cellpadding="10">
+			<!-- Table header -->
+			<thead>
+				<tr>
+					<th>NR Klienta</th>
+					<th>Numer Kontaktu</th>
+					<th>Adres email</th>
+					<th>Data zalozenia konta</th>
+					<th>Akcja</th>
+				</tr>
+			</thead>
+
+			<!-- Table body -->
+			<tbody>
+				<tr th:each="klient : ${listKlient}">
+					<td th:text="${klient.nr_klienta}">NR Klienta</td>
+					<td th:text="${klient.numer_kontaktu}">Numer Kontaktu</td>
+					<td th:text="${klient.adres_email}">Adres email</td>
+					<td th:text="${klient.data_zalozenia_konta}">Data zalozenia
+						konta</td>
+					<td><a
+						th:href="@{/admin/uslugi/klienci/{nr_uslugi}/edit/{nr_klienta}(nr_uslugi=${usluga.nr_uslugi},nr_klienta=${klient.nr_klienta})
+					}"><button
+								type="button" class="btn btn-secondary">Edit</button></a>
+						&nbsp;&nbsp;&nbsp;&nbsp; <a
+						th:href="@{/admin/klienci/uslugi/klienci/{nr_uslugi}/delete/{nr_klienta}(nr_uslugi=${usluga.nr_uslugi},nr_klienta=${klient.nr_klienta})}">
+							<button type="button" class="btn btn-danger">Delete</button>
+					</a></td>
+				</tr>
+			</tbody>
+		</table>
+
+	</div>
+	<link
+		href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css"
+		rel="stylesheet"
+		integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1"
+		crossorigin="anonymous">
+	<script
+		src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"
+		integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW"
+		crossorigin="anonymous"></script>
+</body>
+
+</html>
